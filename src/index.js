@@ -4,17 +4,16 @@
  **/
 
 const urlBase = "https://platzi-avo.vercel.app";
-
 const appNode = document.querySelector('#app');
 
 const formatPrice = (price) => {
-
+  
   // API Internationalization
   const newPrice = new window.Intl.NumberFormat('en-EN', {
     style: 'currency',
     currency: "USD",
   }).format(price)
-
+  
   return newPrice
 }; 
 
@@ -34,23 +33,29 @@ fetch(`${urlBase}/api/avo`)
   responseJson.data.forEach((item) => {
 
     //Crear Imagen, titulo y precio
-    const imagen = document.createElement("img");
-    imagen.src = `${urlBase}${item.image}`;
+    const image = document.createElement("img");
+    image.className = "h-16 w-16 md:h-24 md:w-24 rounded-full mx-auto md:mx-0 md:mr-6";
+    image.src = `${urlBase}${item.image}`;
 
     const title = document.createElement("h2");
     title.textContent = item.name;
     //title.style = 'font-size: 2rem';
     //title.style.fontSize = "3rem";
-    title.className = "text-2xl text-green-600";
+    title.className = "text-lg text-green-700";
 
     const price = document.createElement("div");
     //price.textContent = item.price;
     price.textContent = formatPrice(item.price);
-    price.className = "text-xl";
+    price.className = "text-gray-600";
     
+    const priceAndTitle = document.createElement("div");
+    priceAndTitle.className = "text-center md:text-left";
+    priceAndTitle.appendChild(title);
+    priceAndTitle.appendChild(price);
 
     const container = document.createElement('div');
-    container.append(imagen, title, price);
+    container.className = "md:flex bg-white rounded-lg p-6 hover:bg-gray-300";
+    container.append(image, priceAndTitle);
     
     todosLosItems.push(container);
   });
