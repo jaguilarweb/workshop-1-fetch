@@ -7,6 +7,17 @@ const urlBase = "https://platzi-avo.vercel.app";
 
 const appNode = document.querySelector('#app');
 
+const formatPrice = (price) => {
+
+  // API Internationalization
+  const newPrice = new window.Intl.NumberFormat('en-EN', {
+    style: 'currency',
+    currency: "USD",
+  }).format(price)
+
+  return newPrice
+}; 
+
 //web api fetch
 
 /* Pasos para usar fetch:
@@ -21,6 +32,7 @@ fetch(`${urlBase}/api/avo`)
   //Agregar este arreglo en la memoria de Js no en el DOM
   const todosLosItems = [];
   responseJson.data.forEach((item) => {
+
     //Crear Imagen, titulo y precio
     const imagen = document.createElement("img");
     imagen.src = `${urlBase}${item.image}`;
@@ -32,14 +44,17 @@ fetch(`${urlBase}/api/avo`)
     title.className = "text-2xl text-green-600";
 
     const price = document.createElement("div");
-    price.textContent = item.price;
+    //price.textContent = item.price;
+    price.textContent = formatPrice(item.price);
     price.className = "text-xl";
+    
 
     const container = document.createElement('div');
     container.append(imagen, title, price);
     
     todosLosItems.push(container);
   });
+
   // Se manipula el DOM solo una vez por todos los items
   appNode.className = "mt-10 grid grid-cols-2 gap2";
   appNode.append(...todosLosItems);
