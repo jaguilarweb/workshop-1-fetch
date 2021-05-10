@@ -27,16 +27,21 @@ fetch(`${urlBase}/api/avo`)
 
     const title = document.createElement("h2");
     title.textContent = item.name;
+    //title.style = 'font-size: 2rem';
+    //title.style.fontSize = "3rem";
+    title.className = "text-2xl text-green-600";
 
     const price = document.createElement("div");
     price.textContent = item.price;
-    
+    price.className = "text-xl";
+
     const container = document.createElement('div');
     container.append(imagen, title, price);
     
     todosLosItems.push(container);
   });
   // Se manipula el DOM solo una vez por todos los items
+  appNode.className = "mt-10 grid grid-cols-2 gap2";
   appNode.append(...todosLosItems);
 
 });
