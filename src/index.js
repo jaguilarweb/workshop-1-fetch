@@ -3,4 +3,43 @@
  * When you're ready to start on your site, clear the file. Happy hacking!
  **/
 
-console.log('Happy hacking :)')
+const urlBase = "https://platzi-avo.vercel.app";
+
+const appNode = document.querySelector('#app');
+
+//web api fetch
+
+/* Pasos para usar fetch:
+1.- Conectarnos al servidor
+2.- Procesar la respuesta y convertirla en Json
+3.- JSON -> Data --> renderizar info al browser */
+
+//*TODO pasar este código a async/await
+fetch(`${urlBase}/api/avo`)
+.then(respuesta => respuesta.json())
+.then((responseJson) => {
+  //Agregar este arreglo en la memoria de Js no en el DOM
+  const todosLosItems = [];
+  responseJson.data.forEach((item) => {
+    //Crear Imagen, titulo y precio
+    const imagen = document.createElement("img");
+    imagen.src = `${urlBase}${item.image}`;
+
+    const title = document.createElement("h2");
+    title.textContent = item.name;
+
+    const price = document.createElement("div");
+    price.textContent = item.price;
+    
+    const container = document.createElement('div');
+    container.append(imagen, title, price);
+    
+    todosLosItems.push(container);
+  });
+  // Se manipula el DOM solo una vez por todos los items
+  appNode.append(...todosLosItems);
+
+});
+
+
+
