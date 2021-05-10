@@ -1,5 +1,5 @@
 {
-  "homepage": "http://jaguilarweb.github.io/workshop-1-fetch/",
+  "homepage": "http://jaguilarweb.github.io/workshop-1-fetch",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
